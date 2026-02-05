@@ -40,38 +40,47 @@
    const [activeIndex, setActiveIndex] = useState(0);
    const activeSmoothie = smoothies[activeIndex];
  
+   const scrollToMenu = (e: React.MouseEvent) => {
+     e.preventDefault();
+     document.querySelector("#menu")?.scrollIntoView({ behavior: "smooth" });
+   };
+ 
    return (
-     <section className="relative min-h-[calc(100vh-100px)] px-8 pb-16">
+     <section id="home" className="relative min-h-[calc(100vh-100px)] px-4 md:px-8 pb-8 md:pb-16">
        <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
          {/* Left Content */}
-         <div className="space-y-6 pt-8 lg:pt-0">
-           <h1 className="text-6xl md:text-7xl lg:text-8xl font-heading font-bold leading-[0.95] text-foreground">
+         <div className="space-y-4 md:space-y-6 pt-4 md:pt-8 lg:pt-0 order-2 lg:order-1">
+           <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-heading font-bold leading-[0.95] text-foreground">
              {activeSmoothie.name}
              <br />
              {activeSmoothie.subtitle}
            </h1>
            
-           <p className="text-muted-foreground text-base md:text-lg max-w-md leading-relaxed">
+           <p className="text-muted-foreground text-sm md:text-base lg:text-lg max-w-md leading-relaxed">
              {activeSmoothie.description}
            </p>
  
            {/* Buttons */}
-           <div className="flex items-center gap-4 pt-2">
-             <Button className="btn-primary border-0">
-               Order Now
-             </Button>
-             <Button variant="outline" className="btn-outline">
-               View Menu
-             </Button>
+           <div className="flex flex-wrap items-center gap-3 md:gap-4 pt-2">
+             <a href="#menu" onClick={scrollToMenu}>
+               <Button className="btn-primary border-0">
+                 Order Now
+               </Button>
+             </a>
+             <a href="#menu" onClick={scrollToMenu}>
+               <Button variant="outline" className="btn-outline">
+                 View Menu
+               </Button>
+             </a>
            </div>
  
            {/* Flavor Selector */}
-           <div className="flex items-center gap-4 pt-6">
+           <div className="flex items-center gap-3 md:gap-4 pt-4 md:pt-6">
              {smoothies.map((smoothie, index) => (
                <button
                  key={smoothie.id}
                  onClick={() => setActiveIndex(index)}
-                 className={`flavor-thumb ${index === activeIndex ? 'active' : ''}`}
+                 className={`flavor-thumb w-14 h-14 md:w-16 md:h-16 ${index === activeIndex ? 'active' : ''}`}
                >
                  <img
                    src={smoothie.image}
@@ -84,8 +93,8 @@
          </div>
  
          {/* Right Content - Hero Image */}
-         <div className="relative flex items-center justify-center">
-           <div className="relative w-full max-w-lg">
+         <div className="relative flex items-center justify-center order-1 lg:order-2">
+           <div className="relative w-full max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg">
              <img
                src={activeSmoothie.image}
                alt={activeSmoothie.name}
